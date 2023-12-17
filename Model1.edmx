@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NumtemaGestionClientModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Prénom" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ville" Type="nvarchar" MaxLength="50" />
+          <Property Name="Numéro de Téléphone" Type="nvarchar" MaxLength="20" />
+          <Property Name="EMail" Type="nvarchar" MaxLength="100" />
+          <Property Name="Date d'enregistrement" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Nombre de Relance" Type="int" />
+          <Property Name="ID_TypeClient" Type="int" />
+        </EntityType>
+        <EntityType Name="Historique">
+          <Key>
+            <PropertyRef Name="ID_Historique" />
+          </Key>
+          <Property Name="ID_Historique" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Relance" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Rappel">
+          <Key>
+            <PropertyRef Name="ID_Rappel" />
+          </Key>
+          <Property Name="ID_Rappel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Client" Type="int" />
+          <Property Name="Date du Rappel" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Numéro de Rappel" Type="int" />
+        </EntityType>
+        <EntityType Name="Réclamation">
+          <Key>
+            <PropertyRef Name="ID_Réclamation" />
+          </Key>
+          <Property Name="ID_Réclamation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Client" Type="int" />
+          <Property Name="Numéro Réclamation" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Actions" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Relance">
+          <Key>
+            <PropertyRef Name="ID_Relance" />
+          </Key>
+          <Property Name="ID_Relance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Client" Type="int" />
+          <Property Name="Date de Relance" Type="date" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Numéro Relance" Type="int" />
+        </EntityType>
+        <EntityType Name="TypeClient">
+          <Key>
+            <PropertyRef Name="ID_TypeClient" />
+          </Key>
+          <Property Name="ID_TypeClient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Client__ID_TypeC__2B3F6F97">
+          <End Role="TypeClient" Type="Self.TypeClient" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeClient">
+              <PropertyRef Name="ID_TypeClient" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID_TypeClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historiqu__ID_Re__30F848ED">
+          <End Role="Relance" Type="Self.Relance" Multiplicity="0..1" />
+          <End Role="Historique" Type="Self.Historique" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relance">
+              <PropertyRef Name="ID_Relance" />
+            </Principal>
+            <Dependent Role="Historique">
+              <PropertyRef Name="ID_Relance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rappel__ID_Clien__33D4B598">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Rappel" Type="Self.Rappel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Rappel">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Réclamati__ID_Cl__36B12243">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Réclamation" Type="Self.Réclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Réclamation">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relance__ID_Clie__2E1BDC42">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Relance" Type="Self.Relance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Relance">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NumtemaGestionClientModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historique" EntityType="Self.Historique" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rappel" EntityType="Self.Rappel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Réclamation" EntityType="Self.Réclamation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relance" EntityType="Self.Relance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeClient" EntityType="Self.TypeClient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Client__ID_TypeC__2B3F6F97" Association="Self.FK__Client__ID_TypeC__2B3F6F97">
+            <End Role="TypeClient" EntitySet="TypeClient" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historiqu__ID_Re__30F848ED" Association="Self.FK__Historiqu__ID_Re__30F848ED">
+            <End Role="Relance" EntitySet="Relance" />
+            <End Role="Historique" EntitySet="Historique" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rappel__ID_Clien__33D4B598" Association="Self.FK__Rappel__ID_Clien__33D4B598">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rappel" EntitySet="Rappel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Réclamati__ID_Cl__36B12243" Association="Self.FK__Réclamati__ID_Cl__36B12243">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Réclamation" EntitySet="Réclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relance__ID_Clie__2E1BDC42" Association="Self.FK__Relance__ID_Clie__2E1BDC42">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Relance" EntitySet="Relance" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NumtemaGestionClientModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID_Client" />
+          </Key>
+          <Property Name="ID_Client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prénom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ville" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Numéro_de_Téléphone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Date_d_enregistrement" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre_de_Relance" Type="Int32" />
+          <Property Name="ID_TypeClient" Type="Int32" />
+          <NavigationProperty Name="TypeClient" Relationship="Self.FK__Client__ID_TypeC__2B3F6F97" FromRole="Client" ToRole="TypeClient" />
+          <NavigationProperty Name="Rappel" Relationship="Self.FK__Rappel__ID_Clien__33D4B598" FromRole="Client" ToRole="Rappel" />
+          <NavigationProperty Name="Réclamation" Relationship="Self.FK__Réclamati__ID_Cl__36B12243" FromRole="Client" ToRole="Réclamation" />
+          <NavigationProperty Name="Relance" Relationship="Self.FK__Relance__ID_Clie__2E1BDC42" FromRole="Client" ToRole="Relance" />
+        </EntityType>
+        <EntityType Name="Historique">
+          <Key>
+            <PropertyRef Name="ID_Historique" />
+          </Key>
+          <Property Name="ID_Historique" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Relance" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Relance" Relationship="Self.FK__Historiqu__ID_Re__30F848ED" FromRole="Historique" ToRole="Relance" />
+        </EntityType>
+        <EntityType Name="Rappel">
+          <Key>
+            <PropertyRef Name="ID_Rappel" />
+          </Key>
+          <Property Name="ID_Rappel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Client" Type="Int32" />
+          <Property Name="Date_du_Rappel" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Numéro_de_Rappel" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Rappel__ID_Clien__33D4B598" FromRole="Rappel" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Réclamation">
+          <Key>
+            <PropertyRef Name="ID_Réclamation" />
+          </Key>
+          <Property Name="ID_Réclamation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Client" Type="Int32" />
+          <Property Name="Numéro_Réclamation" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Actions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Réclamati__ID_Cl__36B12243" FromRole="Réclamation" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Relance">
+          <Key>
+            <PropertyRef Name="ID_Relance" />
+          </Key>
+          <Property Name="ID_Relance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Client" Type="Int32" />
+          <Property Name="Date_de_Relance" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Numéro_Relance" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Relance__ID_Clie__2E1BDC42" FromRole="Relance" ToRole="Client" />
+          <NavigationProperty Name="Historique" Relationship="Self.FK__Historiqu__ID_Re__30F848ED" FromRole="Relance" ToRole="Historique" />
+        </EntityType>
+        <EntityType Name="TypeClient">
+          <Key>
+            <PropertyRef Name="ID_TypeClient" />
+          </Key>
+          <Property Name="ID_TypeClient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Client__ID_TypeC__2B3F6F97" FromRole="TypeClient" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK__Client__ID_TypeC__2B3F6F97">
+          <End Role="TypeClient" Type="Self.TypeClient" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeClient">
+              <PropertyRef Name="ID_TypeClient" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="ID_TypeClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rappel__ID_Clien__33D4B598">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Rappel" Type="Self.Rappel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Rappel">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Réclamati__ID_Cl__36B12243">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Réclamation" Type="Self.Réclamation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Réclamation">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relance__ID_Clie__2E1BDC42">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Relance" Type="Self.Relance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID_Client" />
+            </Principal>
+            <Dependent Role="Relance">
+              <PropertyRef Name="ID_Client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historiqu__ID_Re__30F848ED">
+          <End Role="Relance" Type="Self.Relance" Multiplicity="0..1" />
+          <End Role="Historique" Type="Self.Historique" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relance">
+              <PropertyRef Name="ID_Relance" />
+            </Principal>
+            <Dependent Role="Historique">
+              <PropertyRef Name="ID_Relance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NumtemaGestionClientEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Historique" EntityType="Self.Historique" />
+          <EntitySet Name="Rappel" EntityType="Self.Rappel" />
+          <EntitySet Name="Réclamation" EntityType="Self.Réclamation" />
+          <EntitySet Name="Relance" EntityType="Self.Relance" />
+          <EntitySet Name="TypeClient" EntityType="Self.TypeClient" />
+          <AssociationSet Name="FK__Client__ID_TypeC__2B3F6F97" Association="Self.FK__Client__ID_TypeC__2B3F6F97">
+            <End Role="TypeClient" EntitySet="TypeClient" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rappel__ID_Clien__33D4B598" Association="Self.FK__Rappel__ID_Clien__33D4B598">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Rappel" EntitySet="Rappel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Réclamati__ID_Cl__36B12243" Association="Self.FK__Réclamati__ID_Cl__36B12243">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Réclamation" EntitySet="Réclamation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relance__ID_Clie__2E1BDC42" Association="Self.FK__Relance__ID_Clie__2E1BDC42">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Relance" EntitySet="Relance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historiqu__ID_Re__30F848ED" Association="Self.FK__Historiqu__ID_Re__30F848ED">
+            <End Role="Relance" EntitySet="Relance" />
+            <End Role="Historique" EntitySet="Historique" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NumtemaGestionClientModelStoreContainer" CdmEntityContainer="NumtemaGestionClientEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prénom" ColumnName="Prénom" />
+                <ScalarProperty Name="Ville" ColumnName="Ville" />
+                <ScalarProperty Name="Numéro_de_Téléphone" ColumnName="Numéro de Téléphone" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="Date_d_enregistrement" ColumnName="Date d'enregistrement" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Nombre_de_Relance" ColumnName="Nombre de Relance" />
+                <ScalarProperty Name="ID_TypeClient" ColumnName="ID_TypeClient" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historique">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.Historique">
+              <MappingFragment StoreEntitySet="Historique">
+                <ScalarProperty Name="ID_Historique" ColumnName="ID_Historique" />
+                <ScalarProperty Name="ID_Relance" ColumnName="ID_Relance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rappel">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.Rappel">
+              <MappingFragment StoreEntitySet="Rappel">
+                <ScalarProperty Name="ID_Rappel" ColumnName="ID_Rappel" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Date_du_Rappel" ColumnName="Date du Rappel" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Numéro_de_Rappel" ColumnName="Numéro de Rappel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Réclamation">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.Réclamation">
+              <MappingFragment StoreEntitySet="Réclamation">
+                <ScalarProperty Name="ID_Réclamation" ColumnName="ID_Réclamation" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Numéro_Réclamation" ColumnName="Numéro Réclamation" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Actions" ColumnName="Actions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relance">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.Relance">
+              <MappingFragment StoreEntitySet="Relance">
+                <ScalarProperty Name="ID_Relance" ColumnName="ID_Relance" />
+                <ScalarProperty Name="ID_Client" ColumnName="ID_Client" />
+                <ScalarProperty Name="Date_de_Relance" ColumnName="Date de Relance" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Numéro_Relance" ColumnName="Numéro Relance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeClient">
+            <EntityTypeMapping TypeName="NumtemaGestionClientModel.TypeClient">
+              <MappingFragment StoreEntitySet="TypeClient">
+                <ScalarProperty Name="ID_TypeClient" ColumnName="ID_TypeClient" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3dce84f926cc4e438971652ce63ffabb" Name="Diagram1">
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.Client" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.Historique" Width="1.5" PointX="7.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.Rappel" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.Réclamation" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.Relance" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NumtemaGestionClientModel.TypeClient" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="NumtemaGestionClientModel.FK__Client__ID_TypeC__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="NumtemaGestionClientModel.FK__Rappel__ID_Clien__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="NumtemaGestionClientModel.FK__Réclamati__ID_Cl__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="NumtemaGestionClientModel.FK__Relance__ID_Clie__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="NumtemaGestionClientModel.FK__Historiqu__ID_Re__30F848ED" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
