@@ -65,6 +65,18 @@
     <Compile Include="Client.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DetailClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetailClient.Designer.cs">
+      <DependentUpon>DetailClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditClient.Designer.cs">
+      <DependentUpon>EditClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     <Compile Include="TypeClient.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DetailClient.resx">
+      <DependentUpon>DetailClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditClient.resx">
+      <DependentUpon>EditClient.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
